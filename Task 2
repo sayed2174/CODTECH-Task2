@@ -1,0 +1,73 @@
+//CODTECH PROJECT-2 FOR backend development
+const express = require('express');
+const cors = require('cors')
+const app = express();
+const bodyParser = require('body-parser');
+const path = require('path');
+const { message } = require('statuses');
+const port=3000;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const key = "mohammed@123";
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('login'));
+app.use(cors());
+
+//database to store token for login sessions
+let tokens=[];
+//database for store username and hash password
+let dataset =[];
+
+app.post('/register', async (req,res)=>{
+    const { username,password } = req.body;
+    const hashpwd = await bcrypt.hash(password,10);
+    let data ={'username':username,'password':hashpwd};
+    console.log(data);
+    dataset.push({username,'password':hashpwd});
+    res.status(201).json({message});
+    
+});
+
+app.get('/database', (req,res)=>{
+    
+    res.send(dataset);
+
+});
+
+app.post('/login', async (req,res)=>{
+    let {username,password} = req.body;
+    const user = dataset.find(u=> u.username===username);
+    if(!user || !(await bcrypt.compare(password,user.password)))
+        return res.status(401).send("Invalid Credentials.");
+    
+    const token = jwt.sign({username},key,{expiresIn:'1h'});
+    tokens.push({'token':token});
+    res.status(201).json({message});
+
+});
+
+app.get('/auth',(req,res)=>{
+    let i=0;
+    if(tokens[i]==null)
+        return res.status(201).json({'message':'Token is not generated'});
+    const token = tokens[i].token;
+    i=i+1;
+    if(!token)
+        return res.status(401).send(`Access denied ${token}`);
+    try{
+        const user = jwt.verify(token,key);
+        res.json({user,'message':'Authorized User Login'});
+    }catch{
+        res.status(401).json({'message':'Unauthorized User Login'});
+    }
+});
+
+app.get('/token',(req,res)=>{
+    res.send(tokens);
+})
+
+app.listen(port,()=>
+{
+    console.log(`Serving running on port: ${port}`)
+});
