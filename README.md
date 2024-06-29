@@ -7,7 +7,7 @@
 This project implements a basic authentication system with register and login functionality using Express.js. It uses bcrypt to hash passwords and JSON Web Tokens (JWT) for managing user sessions. The system includes endpoints for registering users, logging in, verifying tokens, and viewing stored data.
 
 # Features
-**User Registration:**Register a new user with a hashed password.
+**User Registration:** Register a new user with a hashed password.
 
 **User Login:** Authenticate a user and generate a JWT for session management.
 
@@ -19,15 +19,24 @@ This project implements a basic authentication system with register and login fu
 
 Technologies Used
 **Node.js:** JavaScript runtime environment.
+
 **Express.js:** Web application framework for Node.js.
+
 **bcrypt:** Library to hash passwords.
+
 **jsonwebtoken (JWT):** Library to generate and verify tokens.
+
 **body-parser:** Middleware to parse incoming request bodies.
+
 **CORS:** Middleware to enable Cross-Origin Resource Sharing.
+
 **HTML & CSS:** For serving static files.
+
 # Prerequisites
 **Node.js:** Ensure you have Node.js installed. You can download it from here.
+
 **npm:** Node.js package manager, which comes with Node.js installation.
+
 # Installation
 **Clone the repository:**
 
@@ -35,6 +44,7 @@ Technologies Used
 
 **git clone https:**//github.com/yourusername/simple-auth-system.git
 cd simple-auth-system
+
 **Install dependencies:**
 
 # bash
