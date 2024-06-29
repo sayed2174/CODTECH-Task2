@@ -1,4 +1,8 @@
 //CODTECH PROJECT-2 FOR backend development
+//run these code by using postman
+//save these file with .js extension
+//better to run get http methods on browser
+
 const express = require('express');
 const cors = require('cors')
 const app = express();
